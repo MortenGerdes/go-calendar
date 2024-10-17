@@ -14,7 +14,7 @@ import (
 
 func TestCalendar(t *testing.T) {
 	var (
-		newEventResolverMock = func(getEventsFunc func(ctx context.Context) ([]calendarv2.Event, error)) *EventResolverMock {
+		newEventResolverMock = func(getEventsFunc func(ctx context.Context) (calendarv2.Events, error)) *EventResolverMock {
 			mock := &EventResolverMock{}
 			mock.GetEventsTodayFunc = getEventsFunc
 			return mock
@@ -27,7 +27,7 @@ func TestCalendar(t *testing.T) {
 	t.Run("Start and stop", func(t *testing.T) {
 		//Arrange
 		var (
-			calendar = newSut(calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) ([]calendarv2.Event, error) {
+			calendar = newSut(calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) (calendarv2.Events, error) {
 				return []calendarv2.Event{}, nil
 			})))
 		)
@@ -48,7 +48,7 @@ func TestCalendar(t *testing.T) {
 			}
 			writer   = &TestWriter{}
 			calendar = newSut(
-				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) ([]calendarv2.Event, error) {
+				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) (calendarv2.Events, error) {
 					return []calendarv2.Event{
 						expectedEvent,
 					}, nil
@@ -71,7 +71,7 @@ func TestCalendar(t *testing.T) {
 		var (
 			writer   = &TestWriter{}
 			calendar = newSut(
-				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) ([]calendarv2.Event, error) {
+				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) (calendarv2.Events, error) {
 					return []calendarv2.Event{}, nil
 				})),
 				calendarv2.WithWriter(writer),
@@ -94,7 +94,7 @@ func TestCalendar(t *testing.T) {
 			expectedAmountOfWrites = 5
 			writer                 = &TestWriter{}
 			calendar               = newSut(
-				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) ([]calendarv2.Event, error) {
+				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) (calendarv2.Events, error) {
 					return []calendarv2.Event{
 						{
 							Title:     "Test Event",
@@ -122,7 +122,7 @@ func TestCalendar(t *testing.T) {
 		var (
 			writer   = &TestWriter{}
 			calendar = newSut(
-				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) ([]calendarv2.Event, error) {
+				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) (calendarv2.Events, error) {
 					return []calendarv2.Event{
 						{
 							Title:     "Test Event",
@@ -154,7 +154,7 @@ func TestCalendar(t *testing.T) {
 			}
 			writer   = &TestWriter{}
 			calendar = newSut(
-				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) ([]calendarv2.Event, error) {
+				calendarv2.WithEventResolver(newEventResolverMock(func(ctx context.Context) (calendarv2.Events, error) {
 					return []calendarv2.Event{
 						{
 							Title:     "This is a very long event name that should be truncated",

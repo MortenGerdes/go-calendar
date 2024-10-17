@@ -11,7 +11,7 @@ import (
 type GoogleCalendar struct {
 }
 
-func (g *GoogleCalendar) GetEventsToday(ctx context.Context) ([]Event, error) {
+func (g *GoogleCalendar) GetEventsToday(ctx context.Context) (Events, error) {
 	fromAsDay := time.Now()
 	toAsDay := time.Now().Add(24 * time.Hour)
 

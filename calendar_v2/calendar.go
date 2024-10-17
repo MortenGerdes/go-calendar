@@ -9,7 +9,7 @@ import (
 )
 
 type EventResolver interface {
-	GetEventsToday(ctx context.Context) ([]Event, error)
+	GetEventsToday(ctx context.Context) (Events, error)
 }
 
 type Calendar struct {
@@ -80,7 +80,7 @@ func (c *Calendar) Stop() error {
 	return nil
 }
 
-func (c *Calendar) getNextEventToday(ctx context.Context, after time.Time) *Event {
+func (c *Calendar) getNextEventToday(_ context.Context, after time.Time) *Event {
 	return c.eventCache.GetNextEvent(after)
 }
 

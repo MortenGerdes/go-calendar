@@ -19,7 +19,7 @@ var _ calendarv2.EventResolver = &EventResolverMock{}
 //
 //		// make and configure a mocked calendarv2.EventResolver
 //		mockedEventResolver := &EventResolverMock{
-//			GetEventsTodayFunc: func(ctx context.Context) ([]calendarv2.Event, error) {
+//			GetEventsTodayFunc: func(ctx context.Context) (calendarv2.Events, error) {
 //				panic("mock out the GetEventsToday method")
 //			},
 //		}
@@ -30,7 +30,7 @@ var _ calendarv2.EventResolver = &EventResolverMock{}
 //	}
 type EventResolverMock struct {
 	// GetEventsTodayFunc mocks the GetEventsToday method.
-	GetEventsTodayFunc func(ctx context.Context) ([]calendarv2.Event, error)
+	GetEventsTodayFunc func(ctx context.Context) (calendarv2.Events, error)
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -44,7 +44,7 @@ type EventResolverMock struct {
 }
 
 // GetEventsToday calls GetEventsTodayFunc.
-func (mock *EventResolverMock) GetEventsToday(ctx context.Context) ([]calendarv2.Event, error) {
+func (mock *EventResolverMock) GetEventsToday(ctx context.Context) (calendarv2.Events, error) {
 	if mock.GetEventsTodayFunc == nil {
 		panic("EventResolverMock.GetEventsTodayFunc: method is nil but EventResolver.GetEventsToday was just called")
 	}

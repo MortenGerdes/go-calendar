@@ -10,7 +10,7 @@ import (
 
 func main() {
 	config := calendarv2.NewConfig(
-		calendarv2.WithEventResolver(&calendarv2.GoogleCalendar{}),
+		calendarv2.WithEventResolver(&calendarv2.McalCalendar{}),
 	)
 
 	calendar := calendarv2.New(config)
